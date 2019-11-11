@@ -1,18 +1,117 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <div class="jumbotron mx-auto">
+      <h1 class="display-3">MultiDict</h1>
+
+      <form @submit.prevent="search">
+        <div class="mx-auto my-5">
+          <input
+            type="search"
+            class="form-control search-input mx-2"
+            v-model="query"
+          />
+          <button
+            type="submit"
+            class="btn btn-primary btn-block search-button mx-2"
+          >
+            Search
+          </button>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="mt-5 mx-auto" v-if="loading">
+          <LoadingSpinner />
+        </div>
+        <div
+          class="col-12 col-md-4 my-2 no-float"
+          v-for="(def, i) in orderedDefinitions"
+          :key="i"
+        >
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="card-title mb-1">{{ word }} ({{ def.wordType }})</h5>
+                <small>{{ def.pronunciation }}</small>
+              </div>
+              <p class="card-text mb-1">{{ def.definition }}</p>
+              <small>{{ def.source }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="mt-5 mx-auto" v-if="error">
+          <Oops message="Word was not found :(" />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+
+import axios from "axios";
+
+import LoadingSpinner from "../components/LoadingSpinner";
+import Oops from "../components/Oops";
 
 export default {
   name: "home",
   components: {
-    HelloWorld
+    LoadingSpinner,
+    Oops
+  },
+  data() {
+    return {
+      query: "",
+      word: "",
+      definitions: [],
+      loading: false,
+      error: null
+    };
+  },
+  computed: {
+    orderedDefinitions() {
+      return [...this.definitions].sort(
+        (def1, def2) => def1.order - def2.order
+      );
+    }
+  },
+  methods: {
+    search() {
+      this.word = "";
+      this.definitions = [];
+      this.loading = true;
+      axios
+        .get(`http://localhost:3000/words/${this.query}`)
+        .then(res => {
+          this.error = null;
+          this.word = res.data.word;
+          this.definitions = res.data.definitions;
+        })
+        .catch(err => {
+          this.error = err;
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.jumbotron {
+  max-width: 1200px;
+}
+.search-input {
+  display: inline-block;
+  width: 240px;
+}
+.search-button {
+  display: inline-block;
+  width: 80px;
+  background-color: #a82124;
+  border-color: #a82124;
+}
+</style>
