@@ -54,11 +54,14 @@
 <script>
 // @ is an alias to /src
 
-import axios from "axios";
-import * as R from "ramda";
-
 import LoadingSpinner from "../components/LoadingSpinner";
 import Oops from "../components/Oops";
+
+import { createNamespacedHelpers } from "vuex";
+
+const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
+  "dictionary"
+);
 
 export default {
   name: "home",
@@ -68,41 +71,18 @@ export default {
   },
   data() {
     return {
-      query: "",
-      word: "",
-      definitions: [],
-      loading: false,
-      error: null
+      query: ""
     };
   },
   computed: {
-    orderedDefinitions() {
-      return [...this.definitions].sort(
-        (def1, def2) => def1.order - def2.order
-      );
-    },
-    definitionsGroupedBySource() {
-      return R.groupBy(R.prop("source"))(this.definitions);
-    }
+    ...mapState(["loading", "error"]),
+    ...mapGetters(["word", "definitionsGroupedBySource"])
   },
   methods: {
+    ...mapActions(["searchDictionary"]),
+
     search() {
-      this.word = "";
-      this.definitions = [];
-      this.loading = true;
-      axios
-        .get(`http://localhost:3000/words/${this.query}`)
-        .then(res => {
-          this.error = null;
-          this.word = res.data.word;
-          this.definitions = res.data.definitions;
-        })
-        .catch(err => {
-          this.error = err;
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      this.searchDictionary(this.query);
     }
   }
 };
