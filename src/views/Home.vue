@@ -24,11 +24,15 @@
           <LoadingSpinner />
         </div>
         <div
-          class="col-12 col-md-4 my-2 no-float"
-          v-for="(def, i) in orderedDefinitions"
-          :key="i"
+          class="col-12 col-md-4"
+          v-for="source in Object.keys(definitionsGroupedBySource)"
+          :key="source"
         >
-          <div class="card">
+          <div
+            class="card my-2"
+            v-for="(def, i) in definitionsGroupedBySource[source]"
+            :key="i"
+          >
             <div class="card-body">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="card-title mb-1">{{ word }} ({{ def.wordType }})</h5>
@@ -51,6 +55,7 @@
 // @ is an alias to /src
 
 import axios from "axios";
+import * as R from "ramda";
 
 import LoadingSpinner from "../components/LoadingSpinner";
 import Oops from "../components/Oops";
@@ -75,6 +80,9 @@ export default {
       return [...this.definitions].sort(
         (def1, def2) => def1.order - def2.order
       );
+    },
+    definitionsGroupedBySource() {
+      return R.groupBy(R.prop("source"))(this.definitions);
     }
   },
   methods: {
