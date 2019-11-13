@@ -5802,6 +5802,11 @@ lodash._reinterpolate@^3.0.0:
   resolved "https://registry.yarnpkg.com/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
 
+lodash.clonedeep@^4.5:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
+
 lodash.defaultsdeep@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.defaultsdeep/-/lodash.defaultsdeep-4.6.1.tgz#512e9bd721d272d94e3d3a63653fa17516741ca6"
@@ -9578,6 +9583,13 @@ vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
+
+vuex-rest-api@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/vuex-rest-api/-/vuex-rest-api-2.11.0.tgz#2f6c2172aa16469dc513fe1350e183ec532d3cee"
+  integrity sha512-df3hky/sXVdeanbSFaYIeb1aKhdujuqqm9iUlp1hml3e12FtKRPmSJRtGb8aaeqEDTKmm6wVJMtr91ZD1lPeyA==
+  dependencies:
+    lodash.clonedeep "^4.5"
 
 vuex@^3.0.1:
   version "3.1.2"

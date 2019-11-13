@@ -22,6 +22,7 @@
         <LoadingSpinner />
       </div>
       <div
+        v-else
         class="col-12 col-md-4"
         v-for="source in Object.keys(definitionsGroupedBySource)"
         :key="source"
@@ -47,9 +48,7 @@ import DefinitionCard from '../components/DefinitionCard';
 
 import { createNamespacedHelpers } from 'vuex';
 
-const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
-  'dictionary'
-);
+const { mapGetters, mapActions } = createNamespacedHelpers('dictionary');
 
 export default {
   components: {
@@ -63,14 +62,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(['loading', 'error']),
-    ...mapGetters(['word', 'definitionsGroupedBySource']),
+    ...mapGetters(['word', 'definitionsGroupedBySource', 'loading', 'error']),
   },
   methods: {
     ...mapActions(['searchDictionary']),
 
     search() {
-      this.searchDictionary(this.query);
+      this.searchDictionary({ params: { query: this.query } });
     },
   },
 };
