@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="mt-5 mx-auto" v-if="error">
-          <Oops message="Word was not found :(" />
+          <OopsAlert message="Word was not found :(" />
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
 // @ is an alias to /src
 
 import LoadingSpinner from '../components/LoadingSpinner';
-import Oops from '../components/Oops';
+import OopsAlert from '../components/OopsAlert';
 
 import { createNamespacedHelpers } from 'vuex';
 
@@ -64,10 +64,9 @@ const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
 );
 
 export default {
-  name: 'home',
   components: {
     LoadingSpinner,
-    Oops,
+    OopsAlert,
   },
   data() {
     return {

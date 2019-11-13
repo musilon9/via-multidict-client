@@ -11,7 +11,6 @@
 import { HollowDotsSpinner } from 'epic-spinners';
 
 export default {
-  name: 'LoadingSpinner',
   components: {
     HollowDotsSpinner,
   },
