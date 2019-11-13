@@ -3,18 +3,17 @@
     <h1 class="display-3">MultiDict</h1>
 
     <form @submit.prevent="search">
-      <div class="mx-auto my-5">
+      <div class="input-group search-group mx-auto my-5">
         <input
           type="search"
-          class="form-control search-input mx-2"
+          class="form-control search-input"
           v-model="query"
         />
-        <button
-          type="submit"
-          class="btn btn-primary btn-block search-button mx-2"
-        >
-          Search
-        </button>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary btn-block search-button">
+            Search
+          </button>
+        </div>
       </div>
     </form>
 
@@ -83,13 +82,13 @@ export default {
   max-width: 1200px;
   min-height: 100vh;
 }
-.search-input {
-  display: inline-block;
-  width: 240px;
+.search-group {
+  width: 400px;
+  max-width: 96vw;
 }
 .search-button {
-  display: inline-block;
-  width: 80px;
+  width: 100px;
+  max-width: 24vw;
   background-color: #a82124;
   border-color: #a82124;
 }
