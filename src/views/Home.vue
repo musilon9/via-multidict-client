@@ -28,20 +28,12 @@
           v-for="source in Object.keys(definitionsGroupedBySource)"
           :key="source"
         >
-          <div
-            class="card my-2"
+          <DefinitionCard
             v-for="(def, i) in definitionsGroupedBySource[source]"
+            :def="def"
+            :word="word"
             :key="i"
-          >
-            <div class="card-body">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="card-title mb-1">{{ word }} ({{ def.wordType }})</h5>
-                <small>{{ def.pronunciation }}</small>
-              </div>
-              <p class="card-text mb-1">{{ def.definition }}</p>
-              <small>{{ def.source }}</small>
-            </div>
-          </div>
+          />
         </div>
         <div class="mt-5 mx-auto" v-if="error">
           <OopsAlert message="Word was not found :(" />
@@ -52,10 +44,9 @@
 </template>
 
 <script>
-// @ is an alias to /src
-
 import LoadingSpinner from '../components/LoadingSpinner';
 import OopsAlert from '../components/OopsAlert';
+import DefinitionCard from '../components/DefinitionCard';
 
 import { createNamespacedHelpers } from 'vuex';
 
@@ -65,6 +56,7 @@ const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
 
 export default {
   components: {
+    DefinitionCard,
     LoadingSpinner,
     OopsAlert,
   },
