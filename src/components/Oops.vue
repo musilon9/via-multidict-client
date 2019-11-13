@@ -7,12 +7,12 @@
 
 <script>
 export default {
-  name: "Oops",
+  name: 'Oops',
   props: {
     message: {
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 };
 </script>
 

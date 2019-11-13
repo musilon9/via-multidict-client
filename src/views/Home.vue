@@ -54,37 +54,37 @@
 <script>
 // @ is an alias to /src
 
-import LoadingSpinner from "../components/LoadingSpinner";
-import Oops from "../components/Oops";
+import LoadingSpinner from '../components/LoadingSpinner';
+import Oops from '../components/Oops';
 
-import { createNamespacedHelpers } from "vuex";
+import { createNamespacedHelpers } from 'vuex';
 
 const { mapState, mapGetters, mapActions } = createNamespacedHelpers(
-  "dictionary"
+  'dictionary'
 );
 
 export default {
-  name: "home",
+  name: 'home',
   components: {
     LoadingSpinner,
-    Oops
+    Oops,
   },
   data() {
     return {
-      query: ""
+      query: '',
     };
   },
   computed: {
-    ...mapState(["loading", "error"]),
-    ...mapGetters(["word", "definitionsGroupedBySource"])
+    ...mapState(['loading', 'error']),
+    ...mapGetters(['word', 'definitionsGroupedBySource']),
   },
   methods: {
-    ...mapActions(["searchDictionary"]),
+    ...mapActions(['searchDictionary']),
 
     search() {
       this.searchDictionary(this.query);
-    }
-  }
+    },
+  },
 };
 </script>
 
