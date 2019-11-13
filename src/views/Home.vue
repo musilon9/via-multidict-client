@@ -1,43 +1,41 @@
 <template>
-  <div class="home">
-    <div class="jumbotron mx-auto">
-      <h1 class="display-3">MultiDict</h1>
+  <div class="home mx-auto py-4">
+    <h1 class="display-3">MultiDict</h1>
 
-      <form @submit.prevent="search">
-        <div class="mx-auto my-5">
-          <input
-            type="search"
-            class="form-control search-input mx-2"
-            v-model="query"
-          />
-          <button
-            type="submit"
-            class="btn btn-primary btn-block search-button mx-2"
-          >
-            Search
-          </button>
-        </div>
-      </form>
-
-      <div class="row">
-        <div class="mt-5 mx-auto" v-if="loading">
-          <LoadingSpinner />
-        </div>
-        <div
-          class="col-12 col-md-4"
-          v-for="source in Object.keys(definitionsGroupedBySource)"
-          :key="source"
+    <form @submit.prevent="search">
+      <div class="mx-auto my-5">
+        <input
+          type="search"
+          class="form-control search-input mx-2"
+          v-model="query"
+        />
+        <button
+          type="submit"
+          class="btn btn-primary btn-block search-button mx-2"
         >
-          <DefinitionCard
-            v-for="(def, i) in definitionsGroupedBySource[source]"
-            :def="def"
-            :word="word"
-            :key="i"
-          />
-        </div>
-        <div class="mt-5 mx-auto" v-if="error">
-          <OopsAlert message="Word was not found :(" />
-        </div>
+          Search
+        </button>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="mt-5 mx-auto" v-if="loading">
+        <LoadingSpinner />
+      </div>
+      <div
+        class="col-12 col-md-4"
+        v-for="source in Object.keys(definitionsGroupedBySource)"
+        :key="source"
+      >
+        <DefinitionCard
+          v-for="(def, i) in definitionsGroupedBySource[source]"
+          :def="def"
+          :word="word"
+          :key="i"
+        />
+      </div>
+      <div class="mt-5 mx-auto" v-if="error">
+        <OopsAlert message="Word was not found :(" />
       </div>
     </div>
   </div>
@@ -80,8 +78,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.jumbotron {
+.home {
+  background-color: whitesmoke;
   max-width: 1200px;
+  min-height: 100vh;
 }
 .search-input {
   display: inline-block;
