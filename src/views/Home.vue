@@ -68,7 +68,7 @@ export default {
     ...mapActions(['searchDictionary']),
 
     search() {
-      this.searchDictionary({ params: { query: this.query } });
+      this.query && this.searchDictionary({ params: { query: this.query } });
     },
   },
 };
