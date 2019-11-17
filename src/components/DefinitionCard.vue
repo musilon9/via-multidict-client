@@ -6,6 +6,22 @@
         <small>{{ def.pronunciation }}</small>
       </div>
       <p class="card-text mb-1">{{ def.definition }}</p>
+
+      <div class="card my-2" v-if="def.examples.length">
+        <div class="card-header py-1">
+          <button class="btn btn-link" @click="toggleExamples">Examples</button>
+        </div>
+        <ul class="list-group list-group-flush" v-show="toggleOpen.examples">
+          <li
+            class="list-group-item"
+            v-for="(example, i) in def.examples"
+            :key="i"
+          >
+            {{ example }}
+          </li>
+        </ul>
+      </div>
+
       <small>{{ def.source }}</small>
     </div>
   </div>
@@ -21,7 +37,23 @@ export default {
       type: String,
     },
   },
+  data() {
+    return {
+      toggleOpen: {
+        examples: false,
+      },
+    };
+  },
+  methods: {
+    toggleExamples() {
+      this.toggleOpen.examples = !this.toggleOpen.examples;
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.btn-link {
+  color: #a82124;
+}
+</style>
