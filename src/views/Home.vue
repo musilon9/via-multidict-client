@@ -21,6 +21,9 @@
       <div class="mt-5 mx-auto" v-if="loading">
         <LoadingSpinner />
       </div>
+      <div class="mt-5 mx-auto" v-else-if="error">
+        <OopsAlert message="Word was not found :(" />
+      </div>
       <div
         v-else
         class="col-12 col-md-4"
@@ -33,9 +36,6 @@
           :word="word"
           :key="i"
         />
-      </div>
-      <div class="mt-5 mx-auto" v-if="error">
-        <OopsAlert message="Word was not found :(" />
       </div>
     </div>
   </div>
