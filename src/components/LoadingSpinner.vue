@@ -3,7 +3,7 @@
     :animation-duration="1000"
     :dot-size="15"
     :dots-num="3"
-    color="#ff1d5e"
+    color="#a82124"
   />
 </template>
 

@@ -17,7 +17,7 @@
       </div>
     </form>
 
-    <div class="row">
+    <div class="row mx-3">
       <div class="mt-5 mx-auto" v-if="loading">
         <LoadingSpinner />
       </div>
@@ -87,7 +87,5 @@ export default {
 .search-button {
   width: 100px;
   max-width: 24vw;
-  background-color: #a82124;
-  border-color: #a82124;
 }
 </style>
