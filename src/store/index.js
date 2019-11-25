@@ -21,8 +21,15 @@ const onDictionarySearchSuccess = (state, payload) => {
     state.user
   );
   if (queryHistory) {
+    const { word } = payload.data;
+
+    const existingIndex = queryHistory.findIndex(q => q.word === word);
+    if (existingIndex >= 0) {
+      queryHistory.splice(existingIndex, 1);
+    }
+
     queryHistory.push({
-      word: payload.data.word,
+      word,
       timestamp: Date.now(),
     });
   }
