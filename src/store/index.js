@@ -1,13 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
-Vue.use(Vuex);
-
+import VuexApi from 'vuex-rest-api';
 import * as R from 'ramda';
 
-import VuexApi from 'vuex-rest-api';
-
 import { withTimestampAsString } from '../utils/timestamps';
+
+Vue.use(Vuex);
 
 const onLoginSuccess = (state, payload, axios) => {
   state.user = payload.data;
