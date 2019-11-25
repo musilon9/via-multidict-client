@@ -9,9 +9,7 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
-
-const { mapActions } = createNamespacedHelpers('users');
+import { mapActions } from 'vuex';
 
 export default {
   mounted() {

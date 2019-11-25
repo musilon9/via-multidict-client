@@ -28,10 +28,10 @@
     </form>
 
     <div class="row mx-3">
-      <div class="mt-5 mx-auto" v-if="loading">
+      <div class="mt-5 mx-auto" v-if="wordLoading">
         <LoadingSpinner />
       </div>
-      <div class="mt-5 mx-auto" v-else-if="error">
+      <div class="mt-5 mx-auto" v-else-if="wordError">
         <OopsAlert message="Word was not found :(" />
       </div>
       <div
@@ -57,9 +57,7 @@ import OopsAlert from '../components/OopsAlert';
 import DefinitionCard from '../components/DefinitionCard';
 
 import { isWebBrowserUsable } from '../utils/browsers';
-import { createNamespacedHelpers } from 'vuex';
-
-const { mapGetters, mapActions } = createNamespacedHelpers('dictionary');
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
@@ -73,10 +71,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['word', 'definitionsGroupedBySource', 'loading', 'error']),
-    queryHistory() {
-      return this.$store.getters['users/queryHistory'];
-    },
+    ...mapGetters([
+      'queryHistory',
+      'word',
+      'definitionsGroupedBySource',
+      'userLoading',
+      'userError',
+      'wordLoading',
+      'wordError',
+    ]),
     isWebBrowserUsable,
   },
   methods: {
