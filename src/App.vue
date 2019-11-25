@@ -8,6 +8,21 @@
   </div>
 </template>
 
+<script>
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapActions } = createNamespacedHelpers('users');
+
+export default {
+  mounted() {
+    this.login({ data: { username: 'history', password: 'lover' } });
+  },
+  methods: {
+    ...mapActions(['login']),
+  },
+};
+</script>
+
 <style lang="scss">
 @import './assets/styles/custom';
 @import '../node_modules/bootstrap/scss/bootstrap';

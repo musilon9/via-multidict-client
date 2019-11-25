@@ -1,14 +1,14 @@
 import * as R from 'ramda';
 
-import Vapi from 'vuex-rest-api';
+import VuexApi from 'vuex-rest-api';
 
-const dictionary = new Vapi({
-  baseURL: 'http://localhost:3000/words',
+const dictionary = new VuexApi({
+  baseURL: 'http://localhost:3000', // TODO make configurable
 })
   .get({
     action: 'searchDictionary',
     property: 'word',
-    path: ({ query }) => `/${query}`,
+    path: ({ query }) => `/words/${query}`,
   })
   .getStore();
 

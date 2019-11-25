@@ -6,9 +6,19 @@
       <div class="input-group search-group mx-auto my-5">
         <input
           type="search"
+          list="search-history"
           class="form-control search-input"
           v-model="query"
         />
+        <datalist id="search-history">
+          <option
+            v-for="query in queryHistory"
+            :key="query.word"
+            :value="query.word"
+            :label="isWebBrowserUsable ? query.timestamp : query.word"
+          >
+          </option>
+        </datalist>
         <div class="input-group-append">
           <button type="submit" class="btn btn-primary btn-block search-button">
             Search
@@ -46,6 +56,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import OopsAlert from '../components/OopsAlert';
 import DefinitionCard from '../components/DefinitionCard';
 
+import { isWebBrowserUsable } from '../utils/browsers';
 import { createNamespacedHelpers } from 'vuex';
 
 const { mapGetters, mapActions } = createNamespacedHelpers('dictionary');
@@ -63,6 +74,10 @@ export default {
   },
   computed: {
     ...mapGetters(['word', 'definitionsGroupedBySource', 'loading', 'error']),
+    queryHistory() {
+      return this.$store.getters['users/queryHistory'];
+    },
+    isWebBrowserUsable,
   },
   methods: {
     ...mapActions(['searchDictionary']),
