@@ -25,11 +25,7 @@
       </div>
 
       <small>
-        <a
-          :href="getSearchUrl(def.source)"
-          target="_blank"
-          :title="'find on ' + def.source"
-        >
+        <a :href="searchUrl" target="_blank" :title="'find on ' + def.source">
           {{ def.source }}
         </a>
       </small>
@@ -55,16 +51,17 @@ export default {
   },
   computed: {
     ...mapGetters(['dictionarySources']),
+
+    searchUrl() {
+      const baseUrl = R.prop('searchUrl')(
+        R.find(R.propEq('sourceName', this.def.source))(this.dictionarySources)
+      );
+      return baseUrl ? R.concat(baseUrl)(this.word) : '#';
+    },
   },
   methods: {
     toggleExamples() {
       this.toggleOpen.examples = !this.toggleOpen.examples;
-    },
-    getSearchUrl(sourceName) {
-      const baseUrl = R.prop('searchUrl')(
-        R.find(R.propEq('sourceName', sourceName))(this.dictionarySources)
-      );
-      return baseUrl ? R.concat(baseUrl)(this.word) : '#';
     },
   },
 };
