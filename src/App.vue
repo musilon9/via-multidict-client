@@ -13,10 +13,11 @@ import { mapActions } from 'vuex';
 
 export default {
   mounted() {
+    this.getSourceInfo();
     this.login({ data: { username: 'history', password: 'lover' } });
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(['getSourceInfo', 'login']),
   },
 };
 </script>

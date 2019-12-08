@@ -61,6 +61,11 @@ const dictionary = new VuexApi({
     path: ({ query }) => `/words/${query}`,
     onSuccess: onDictionarySearchSuccess,
   })
+  .get({
+    action: 'getSourceInfo',
+    property: 'dictionarySources',
+    path: '/sources/dictionaries',
+  })
   .getStore();
 
 export default new Vuex.Store({
@@ -69,7 +74,7 @@ export default new Vuex.Store({
   ...dictionary,
 
   getters: {
-    user: state => state.user.user,
+    user: state => R.prop('user')(state.user),
     queryHistory: state =>
       R.pipe(
         R.pathOr([])(['user', 'dictionary', 'queryHistory']),
@@ -85,5 +90,6 @@ export default new Vuex.Store({
     word: state => R.prop('word')(state.word),
     wordLoading: state => state.pending.word,
     wordError: state => state.error.word,
+    dictionarySources: state => state.dictionarySources,
   },
 });

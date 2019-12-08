@@ -24,12 +24,23 @@
         </ul>
       </div>
 
-      <small>{{ def.source }}</small>
+      <small>
+        <a
+          :href="getSearchUrl(def.source)"
+          target="_blank"
+          :title="'find on ' + def.source"
+        >
+          {{ def.source }}
+        </a>
+      </small>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import * as R from 'ramda';
+
 export default {
   props: {
     def: Object,
@@ -42,9 +53,18 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters(['dictionarySources']),
+  },
   methods: {
     toggleExamples() {
       this.toggleOpen.examples = !this.toggleOpen.examples;
+    },
+    getSearchUrl(sourceName) {
+      const baseUrl = R.prop('searchUrl')(
+        R.find(R.propEq('sourceName', sourceName))(this.dictionarySources)
+      );
+      return baseUrl ? R.concat(baseUrl)(this.word) : '#';
     },
   },
 };
