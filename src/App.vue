@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="mx-auto py-4">
     <!--    <div id="nav">-->
     <!--      <router-link to="/">Home</router-link> |-->
     <!--      <router-link to="/about">About</router-link>-->
@@ -14,10 +14,9 @@ import { mapActions } from 'vuex';
 export default {
   mounted() {
     this.getSourceInfo();
-    this.login({ data: { username: 'history', password: 'lover' } });
   },
   methods: {
-    ...mapActions(['getSourceInfo', 'login']),
+    ...mapActions(['getSourceInfo']),
   },
 };
 </script>
@@ -31,5 +30,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background-color: whitesmoke;
+  max-width: 1200px;
+  min-height: 100vh;
 }
 </style>

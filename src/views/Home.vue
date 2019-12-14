@@ -1,31 +1,41 @@
 <template>
-  <div class="home mx-auto py-4">
-    <h1 class="display-3">MultiDict</h1>
-
-    <form @submit.prevent="search">
-      <div class="input-group search-group mx-auto my-5">
-        <input
-          type="search"
-          list="search-history"
-          class="form-control search-input"
-          v-model="query"
-        />
-        <datalist id="search-history">
-          <option
-            v-for="query in queryHistory"
-            :key="query.word"
-            :value="query.word"
-            :label="isWebBrowserUsable ? query.timestamp : query.word"
-          >
-          </option>
-        </datalist>
-        <div class="input-group-append">
-          <button type="submit" class="btn btn-primary btn-block search-button">
-            Search
-          </button>
-        </div>
+  <div class="home mx-auto">
+    <div class="row flex-md-row-reverse">
+      <div class="col-12 col-md-3">
+        <User />
       </div>
-    </form>
+      <div class="col-12 col-md-6">
+        <h1 class="display-3">MultiDict</h1>
+
+        <form @submit.prevent="search">
+          <div class="input-group search-group mx-auto my-5">
+            <input
+              type="search"
+              list="search-history"
+              class="form-control search-input"
+              v-model="query"
+            />
+            <datalist id="search-history">
+              <option
+                v-for="query in queryHistory"
+                :key="query.word"
+                :value="query.word"
+                :label="isWebBrowserUsable ? query.timestamp : query.word"
+              >
+              </option>
+            </datalist>
+            <div class="input-group-append">
+              <button
+                type="submit"
+                class="btn btn-primary btn-block search-button"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <div class="row mx-3">
       <div class="mt-5 mx-auto" v-if="wordLoading">
@@ -55,12 +65,14 @@
 import LoadingSpinner from '../components/LoadingSpinner';
 import OopsAlert from '../components/OopsAlert';
 import DefinitionCard from '../components/DefinitionCard';
+import User from '../components/User';
 
 import { isWebBrowserUsable } from '../utils/browsers';
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   components: {
+    User,
     DefinitionCard,
     LoadingSpinner,
     OopsAlert,
@@ -93,11 +105,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home {
-  background-color: whitesmoke;
-  max-width: 1200px;
-  min-height: 100vh;
-}
 .search-group {
   width: 400px;
   max-width: 96vw;
