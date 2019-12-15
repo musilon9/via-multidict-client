@@ -66,6 +66,11 @@ const dictionary = new VuexApi({
     property: 'dictionarySources',
     path: '/sources/dictionaries',
   })
+  .post({
+    action: 'storeCard',
+    property: 'user',
+    path: '/user/cards',
+  })
   .getStore();
 
 export default new Vuex.Store({
@@ -81,6 +86,7 @@ export default new Vuex.Store({
         R.sortWith([R.descend(R.prop('timestamp'))]),
         R.map(withTimestampAsString)
       )(state.user),
+    storedCards: state => R.pathOr([])(['user', 'stored', 'cards'])(state.user),
     userLoading: state => state.pending.user,
     userError: state => state.error.user,
     definitionsGroupedBySource: state =>

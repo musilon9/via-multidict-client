@@ -58,6 +58,16 @@
         />
       </div>
     </div>
+
+    <div class="row mx-3" v-if="storedCards.length">
+      <div class="col-12 border-top border-primary border- my-4"></div>
+      <div class="col-12 mx-auto">
+        <h4>My Cards</h4>
+      </div>
+      <div class="col-12 col-md-4" v-for="(card, i) in storedCards" :key="i">
+        <DefinitionCard :def="card" :word="card.word" :is-stored-card="true" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -84,7 +94,9 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'user',
       'queryHistory',
+      'storedCards',
       'word',
       'definitionsGroupedBySource',
       'userLoading',

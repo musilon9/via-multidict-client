@@ -4,6 +4,18 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser, faHeart } from '@fortawesome/free-regular-svg-icons';
+import {
+  faUser as solidFaUser,
+  faHeart as solidFaHeart,
+} from '@fortawesome/free-solid-svg-icons';
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faUser, solidFaUser, faHeart, solidFaHeart);
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+
 Vue.config.productionTip = false;
 
 new Vue({

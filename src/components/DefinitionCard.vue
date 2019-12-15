@@ -2,8 +2,19 @@
   <div class="card my-2">
     <div class="card-body">
       <div class="d-flex w-100 justify-content-between">
-        <h5 class="card-title text-primary mb-1">
+        <h5 class="card-title text-primary">
           {{ word }} ({{ def.wordType }})
+          <button
+            class="btn btn-link text-decoration-none py-0"
+            v-if="!isStoredCard && canBeStored"
+            @click="doStoreCard"
+          >
+            <font-awesome-icon :icon="['far', 'heart']" />
+          </button>
+          <font-awesome-icon
+            :icon="['fas', 'heart']"
+            v-if="!isStoredCard && hasBeenStored"
+          />
         </h5>
         <small>{{ def.pronunciation }}</small>
       </div>
@@ -11,7 +22,12 @@
 
       <div class="card my-2" v-if="def.examples.length">
         <div class="card-header py-1">
-          <button class="btn btn-link" @click="toggleExamples">Examples</button>
+          <button
+            class="btn btn-link text-decoration-none"
+            @click="toggleExamples"
+          >
+            Examples
+          </button>
         </div>
         <ul class="list-group list-group-flush" v-show="toggleOpen.examples">
           <li
@@ -34,13 +50,19 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import * as R from 'ramda';
+
+import { canBeStored, hasBeenStored } from '../utils/cards';
 
 export default {
   props: {
     def: Object,
     word: String,
+    isStoredCard: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -58,10 +80,22 @@ export default {
       );
       return baseUrl ? R.concat(baseUrl)(this.word) : '#';
     },
+    canBeStored() {
+      return canBeStored(this.def);
+    },
+    hasBeenStored() {
+      return hasBeenStored(this.def);
+    },
   },
   methods: {
+    ...mapActions(['storeCard']),
     toggleExamples() {
       this.toggleOpen.examples = !this.toggleOpen.examples;
+    },
+    doStoreCard() {
+      this.storeCard({
+        data: { ...R.omit(['_id'])(this.def), word: this.word },
+      });
     },
   },
 };

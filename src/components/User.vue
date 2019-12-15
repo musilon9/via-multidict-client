@@ -1,8 +1,20 @@
 <template>
   <div>
-    <div class="text-primary" v-if="user">User: {{ user.username }}</div>
+    <div class="text-primary" v-if="user">
+      <font-awesome-icon :icon="['fas', 'user']" />
+      {{ user.username }}
+    </div>
     <div v-else>
-      <button class="btn btn-link" @click="toggleLoginForm">Login</button>
+      <div class="text-primary">
+        <font-awesome-icon :icon="['far', 'user']" />
+        <button
+          class="btn btn-link text-decoration-none"
+          @click="toggleLoginForm"
+        >
+          Login
+        </button>
+      </div>
+
       <form
         class="mx-3"
         v-show="toggleOpen.loginForm"
