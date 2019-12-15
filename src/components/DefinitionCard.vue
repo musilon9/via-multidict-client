@@ -1,6 +1,27 @@
 <template>
   <div class="card my-2">
-    <div class="card-body">
+    <div class="card-body" v-if="toggle.delete">
+      <h5 class="card-title text-primary">Delete card?</h5>
+      <div class="row my-3">
+        <div class="col-6">
+          <button
+            class="btn btn-link text-decoration-none"
+            @click="doDeleteCard"
+          >
+            Yes
+          </button>
+        </div>
+        <div class="col-6">
+          <button
+            class="btn btn-link text-secondary text-decoration-none"
+            @click="toggleDelete"
+          >
+            No
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="card-body" v-else>
       <div class="d-flex w-100 justify-content-between">
         <h5 class="card-title text-primary">
           {{ word }} ({{ def.wordType }})
@@ -29,7 +50,7 @@
             Examples
           </button>
         </div>
-        <ul class="list-group list-group-flush" v-show="toggleOpen.examples">
+        <ul class="list-group list-group-flush" v-show="toggle.examples">
           <li
             class="list-group-item"
             v-for="(example, i) in def.examples"
@@ -56,7 +77,7 @@
           <button
             class="btn btn-link text-muted text-decoration-none py-0"
             v-if="isStoredCard"
-            @click="doDeleteCard"
+            @click="toggleDelete"
           >
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
           </button>
@@ -83,8 +104,9 @@ export default {
   },
   data() {
     return {
-      toggleOpen: {
+      toggle: {
         examples: false,
+        delete: false,
       },
     };
   },
@@ -106,8 +128,12 @@ export default {
   },
   methods: {
     ...mapActions(['storeCard', 'deleteCard']),
+
     toggleExamples() {
-      this.toggleOpen.examples = !this.toggleOpen.examples;
+      this.toggle.examples = !this.toggle.examples;
+    },
+    toggleDelete() {
+      this.toggle.delete = !this.toggle.delete;
     },
     doStoreCard() {
       this.storeCard({
