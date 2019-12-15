@@ -9,11 +9,11 @@ import { faUser, faHeart } from '@fortawesome/free-regular-svg-icons';
 import {
   faUser as solidFaUser,
   faHeart as solidFaHeart,
+  faTrashAlt as solidFaTrashAlt,
 } from '@fortawesome/free-solid-svg-icons';
-
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faUser, solidFaUser, faHeart, solidFaHeart);
+library.add(faUser, solidFaUser, faHeart, solidFaHeart, solidFaTrashAlt);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;

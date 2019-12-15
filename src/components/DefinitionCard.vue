@@ -40,11 +40,28 @@
         </ul>
       </div>
 
-      <small>
-        <a :href="searchUrl" target="_blank" :title="'find on ' + def.source">
-          {{ def.source }}
-        </a>
-      </small>
+      <div class="row">
+        <div class="col-8 offset-2">
+          <small>
+            <a
+              :href="searchUrl"
+              target="_blank"
+              :title="'find on ' + def.source"
+            >
+              {{ def.source }}
+            </a>
+          </small>
+        </div>
+        <div class="col-2">
+          <button
+            class="btn btn-link text-muted text-decoration-none py-0"
+            v-if="isStoredCard"
+            @click="doDeleteCard"
+          >
+            <font-awesome-icon :icon="['fas', 'trash-alt']" />
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -88,7 +105,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['storeCard']),
+    ...mapActions(['storeCard', 'deleteCard']),
     toggleExamples() {
       this.toggleOpen.examples = !this.toggleOpen.examples;
     },
@@ -96,6 +113,9 @@ export default {
       this.storeCard({
         data: { ...R.omit(['_id'])(this.def), word: this.word },
       });
+    },
+    doDeleteCard() {
+      this.deleteCard({ params: { id: this.def._id } });
     },
   },
 };

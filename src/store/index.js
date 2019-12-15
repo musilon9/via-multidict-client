@@ -71,6 +71,11 @@ const dictionary = new VuexApi({
     property: 'user',
     path: '/user/cards',
   })
+  .delete({
+    action: 'deleteCard',
+    property: 'user',
+    path: ({ id }) => `/user/cards/${id}`,
+  })
   .getStore();
 
 export default new Vuex.Store({
