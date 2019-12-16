@@ -100,6 +100,7 @@
           </button>
           <button
             class="btn btn-link text-decoration-none py-0"
+            :disabled="!hasUnsavedNote"
             v-if="isStoredCard && toggle.note"
             @click="saveNote"
           >
@@ -150,6 +151,9 @@ export default {
     },
     hasBeenStored() {
       return hasBeenStored(this.def);
+    },
+    hasUnsavedNote() {
+      return this.def.note !== this.note;
     },
   },
   methods: {
