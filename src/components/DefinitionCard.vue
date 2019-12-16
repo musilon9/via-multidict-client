@@ -99,7 +99,7 @@
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
           </button>
           <button
-            class="btn btn-link text-muted text-decoration-none py-0"
+            class="btn btn-link text-decoration-none py-0"
             v-if="isStoredCard && toggle.note"
             @click="saveNote"
           >
