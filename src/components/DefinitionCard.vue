@@ -61,8 +61,25 @@
         </ul>
       </div>
 
+      <div class="row my-3" v-show="toggle.note">
+        <textarea
+          class="form-control mx-2"
+          rows="3"
+          placeholder="Write a note..."
+          v-model="note"
+        />
+      </div>
       <div class="row">
-        <div class="col-8 offset-2">
+        <div class="col-2">
+          <button
+            class="btn btn-link text-decoration-none py-0"
+            v-if="isStoredCard"
+            @click="toggleNote"
+          >
+            <font-awesome-icon :icon="['far', 'sticky-note']" />
+          </button>
+        </div>
+        <div class="col-8">
           <small>
             <a
               :href="searchUrl"
@@ -76,10 +93,17 @@
         <div class="col-2">
           <button
             class="btn btn-link text-muted text-decoration-none py-0"
-            v-if="isStoredCard"
+            v-if="isStoredCard && !toggle.note"
             @click="toggleDelete"
           >
             <font-awesome-icon :icon="['fas', 'trash-alt']" />
+          </button>
+          <button
+            class="btn btn-link text-muted text-decoration-none py-0"
+            v-if="isStoredCard && toggle.note"
+            @click="saveNote"
+          >
+            <font-awesome-icon :icon="['fas', 'save']" />
           </button>
         </div>
       </div>
@@ -106,8 +130,10 @@ export default {
     return {
       toggle: {
         examples: false,
+        note: false,
         delete: false,
       },
+      note: this.def.note || '',
     };
   },
   computed: {
@@ -127,10 +153,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['storeCard', 'deleteCard']),
+    ...mapActions(['storeCard', 'editCard', 'deleteCard']),
 
     toggleExamples() {
       this.toggle.examples = !this.toggle.examples;
+    },
+    toggleNote() {
+      this.toggle.note = !this.toggle.note;
     },
     toggleDelete() {
       this.toggle.delete = !this.toggle.delete;
@@ -138,6 +167,12 @@ export default {
     doStoreCard() {
       this.storeCard({
         data: { ...R.omit(['_id'])(this.def), word: this.word },
+      });
+    },
+    saveNote() {
+      this.editCard({
+        params: { id: this.def._id },
+        data: { note: this.note },
       });
     },
     doDeleteCard() {

@@ -35,6 +35,15 @@ const onDictionarySearchSuccess = (state, payload) => {
   }
 };
 
+const onCardEditSuccess = (state, payload) => {
+  state.user = payload.data;
+  Vue.notify({
+    type: 'primary',
+    title: 'Note saved',
+    text: 'Note was successfully saved.',
+  });
+};
+
 const dictionary = new VuexApi({
   baseURL: 'http://localhost:3000', // TODO make configurable
 })
@@ -70,6 +79,12 @@ const dictionary = new VuexApi({
     action: 'storeCard',
     property: 'user',
     path: '/user/cards',
+  })
+  .patch({
+    action: 'editCard',
+    property: 'user',
+    path: ({ id }) => `/user/cards/${id}`,
+    onSuccess: onCardEditSuccess,
   })
   .delete({
     action: 'deleteCard',

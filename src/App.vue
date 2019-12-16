@@ -5,6 +5,7 @@
     <!--      <router-link to="/about">About</router-link>-->
     <!--    </div>-->
     <router-view />
+    <notifications position="top center" classes="my-notifications" />
   </div>
 </template>
 
@@ -33,5 +34,16 @@ export default {
   background-color: whitesmoke;
   max-width: 1200px;
   min-height: 100vh;
+}
+
+.my-notifications {
+  &.primary {
+    font-size: 12px;
+    padding: 10px;
+    margin: 0 5px 5px;
+    color: #fff;
+    background: $primary;
+    border-left: 5px solid darken($primary, 10%);
+  }
 }
 </style>
