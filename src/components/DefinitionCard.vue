@@ -76,7 +76,7 @@
             v-if="isStoredCard"
             @click="toggleNote"
           >
-            <font-awesome-icon :icon="['far', 'sticky-note']" />
+            <font-awesome-icon :icon="[note ? 'fas' : 'far', 'sticky-note']" />
           </button>
         </div>
         <div class="col-8">
