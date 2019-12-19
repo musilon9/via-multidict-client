@@ -45,7 +45,7 @@ const onCardEditSuccess = (state, payload) => {
 };
 
 const dictionary = new VuexApi({
-  baseURL: process.env.VUE_APP_BACKEND_URL,
+  baseURL: 'https://via-multidict-server.herokuapp.com',
 })
   .post({
     action: 'login',
