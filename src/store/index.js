@@ -45,7 +45,7 @@ const onCardEditSuccess = (state, payload) => {
 };
 
 const dictionary = new VuexApi({
-  baseURL: 'http://localhost:3000', // TODO make configurable
+  baseURL: process.env.VUE_APP_BACKEND_URL,
 })
   .post({
     action: 'login',
